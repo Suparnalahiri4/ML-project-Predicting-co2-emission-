@@ -147,14 +147,12 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
-# Step 4: Train the XGBoost Model
+
 model = xgb.XGBRegressor(use_label_encoder=False, eval_metric='rmse')
 model.fit(x_train, y_train)
 
-# Step 5: Evaluate the Model
 y_pred = model.predict(x_test)
 
-# Calculate performance metrics
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
@@ -165,14 +163,12 @@ r2_sc['XGBoost'] = r2
 
 from sklearn.ensemble import RandomForestRegressor
 
-# Initialize and Train Random Forest Model
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
 rf_model.fit(x_train, y_train)
 
-# Make Predictions
 y_pred_rf = rf_model.predict(x_test)
 
-# Evaluate the Random Forest Model
+
 mse_rf = mean_squared_error(y_test, y_pred_rf)
 r2_rf = r2_score(y_test, y_pred_rf)
 
@@ -184,16 +180,14 @@ r2_sc['Random Forest'] = r2_rf
 from sklearn.ensemble import BaggingRegressor
 from sklearn.tree import DecisionTreeRegressor
 
-# Initialize and Train Bagging Model
+
 bagging_model = BaggingRegressor(base_estimator=DecisionTreeRegressor(),
                                  n_estimators=100,
                                  random_state=42)
 bagging_model.fit(x_train, y_train)
 
-# Make Predictions
 y_pred_bagging = bagging_model.predict(x_test)
 
-# Evaluate the Bagging Model
 mse_bagging = mean_squared_error(y_test, y_pred_bagging)
 r2_bagging = r2_score(y_test, y_pred_bagging)
 
@@ -202,7 +196,7 @@ print(f"Bagging - R^2 Score: {r2_bagging}")
 
 r2_sc['Bagging'] = r2_bagging
 r2_sc
-# Get the key with the maximum value
+
 max_key = max(r2_sc, key=r2_sc.get)
 print(f"Technique with maximum accuracy: {max_key}")
 
