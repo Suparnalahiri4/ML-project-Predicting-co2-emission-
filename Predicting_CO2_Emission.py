@@ -24,7 +24,6 @@ X.isnull().sum()
 import plotly.graph_objects as go
 import plotly.express as px
 
-# Let's look at the distribution of our categorical characteristics with a bar graph
 
 def plot_bar_graphs(df, columns):
     for column in columns:
@@ -41,10 +40,10 @@ cat_features = [ 'Vehicle Class', 'Engine Size(L)', 'Cylinders','Transmission', 
 
 plot_bar_graphs(df, cat_features)
 from sklearn.preprocessing import LabelEncoder
-# Initialize the LabelEncoder
+
 le = LabelEncoder()
 
-# Fit and transform the data
+
 X['Fuel Type'] = le.fit_transform(X['Fuel Type'])
 X.head(10)
 correlation_matrix = X.corr()
@@ -69,7 +68,7 @@ for i, var in enumerate(numerical_df.columns, 1):
 
 plt.tight_layout()
 plt.show()
-# Consumption of Highway and City
+
 
 plt.figure(figsize=(8, 5))
 sns.histplot(data=X, x='Fuel Consumption Hwy (L/100 km)', kde=True, label = "Fuel Consumption in Highway",color = "orange")
@@ -86,14 +85,13 @@ r2_sc= {}
 
 from sklearn.linear_model import LinearRegression, Lasso, Ridge
 
-# Initialize and Train the Linear Regression Model
 lr_model = LinearRegression()
 lr_model.fit(x_train, y_train)
 
-# Make Predictions
+
 y_pred_lr = lr_model.predict(x_test)
 
-# Evaluate the Linear Regression Model
+
 mse_lr = mean_squared_error(y_test, y_pred_lr)
 r2_lr = r2_score(y_test, y_pred_lr)
 
@@ -101,10 +99,10 @@ print(f"Linear Regression - Mean Squared Error: {mse_lr}")
 print(f"Linear Regression - R^2 Score: {r2_lr}")
 r2_sc['Linear Regression'] = r2_lr
 
-lasso_model = Lasso(alpha=0.01)  # You can tune the alpha parameter
+lasso_model = Lasso(alpha=0.01)  
 lasso_model.fit(x_train, y_train)
 
-# Make Predictions and Evaluate Lasso Regression
+
 y_pred_lasso = lasso_model.predict(x_test)
 mse_lasso = mean_squared_error(y_test, y_pred_lasso)
 r2_lasso = r2_score(y_test, y_pred_lasso)
@@ -112,11 +110,10 @@ r2_lasso = r2_score(y_test, y_pred_lasso)
 print(f"\nLasso Regression - Mean Squared Error: {mse_lasso}")
 print(f"Lasso Regression - R^2 Score: {r2_lasso}")
 r2_sc['Lasso'] = r2_lasso
-# Initialize and Train the Ridge Regression Model
-ridge_model = Ridge(alpha=0.01)  # You can tune the alpha parameter
+
+ridge_model = Ridge(alpha=0.01)  
 ridge_model.fit(x_train, y_train)
 
-# Make Predictions and Evaluate Ridge Regression
 y_pred_ridge = ridge_model.predict(x_test)
 mse_ridge = mean_squared_error(y_test, y_pred_ridge)
 r2_ridge = r2_score(y_test, y_pred_ridge)
@@ -128,15 +125,14 @@ r2_sc['Ridge'] = r2_ridge
 from sklearn.metrics import accuracy_score, r2_score
 from sklearn.svm import SVC
 
-# Initialize SVM model
+
 model = SVC(kernel='linear')
-# Train the model
+
 model.fit(x_train, y_train)
 
-# Make predictions
+
 y_pred = model.predict(x_test)
 
-# Evaluate the model
 accuracy = accuracy_score(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
